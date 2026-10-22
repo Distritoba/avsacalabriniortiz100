@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fede Gorelik · Scalabrini Ortiz 100 · Proyección Airbnb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #2E5634;
+  --green-dark: #1e3b22;
+  --cream: #F2EFEB;
+  --gold: #C9A84C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:#222}
+h1,h2,h3,.logo{font-family:'Bakbak One',sans-serif}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--green-dark);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:14px 32px}
+.logo{color:white;font-size:1.1rem;letter-spacing:.04em}
+.nav-client{color:rgba(255,255,255,.7);font-size:.85rem}
+
+/* HERO */
+.hero{background:var(--green);color:white;padding:80px 32px 60px;text-align:center}
+.hero-tag{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:12px}
+.hero-title{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin-bottom:8px}
+.hero-subtitle{color:rgba(255,255,255,.7);font-size:1rem;margin-bottom:48px}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-value{display:block;font-family:'Bakbak One',sans-serif;font-size:2.4rem;color:var(--gold)}
+.stat-label{font-size:.8rem;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;display:block}
+.no-pm-badge{display:inline-block;background:rgba(201,168,76,.2);border:1px solid var(--gold);color:var(--gold);font-size:.75rem;padding:4px 12px;border-radius:20px;margin-top:24px;letter-spacing:.06em}
+
+/* SECTIONS */
+section{padding:64px 32px;max-width:960px;margin:0 auto}
+.section-tag{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px}
+h2{font-size:1.9rem;color:var(--green-dark);margin-bottom:16px}
+.section-desc{color:#555;font-size:.95rem;line-height:1.6;margin-bottom:32px}
+.divider{border:none;border-top:1px solid #ddd;margin:0}
+
+/* DEPTO */
+.depto-desc{background:white;border-radius:12px;padding:28px;margin-bottom:28px;line-height:1.7;color:#333;font-size:.95rem}
+.amenities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.amenity{background:white;border-radius:10px;padding:14px 16px;font-size:.9rem;color:#333;display:flex;align-items:center;gap:10px}
+
+/* MERCADO */
+.market-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+.mstat{background:white;border-radius:10px;padding:20px;text-align:center}
+.mstat-val{font-family:'Bakbak One',sans-serif;font-size:1.6rem;color:var(--green);display:block}
+.mstat-lbl{font-size:.78rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+table.mt{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;font-size:.88rem}
+table.mt th{background:var(--green);color:white;padding:12px 14px;text-align:left;font-weight:500}
+table.mt td{padding:11px 14px;border-bottom:1px solid #f0f0f0;color:#222}
+table.mt td,table.mt th{color:#222}
+table.mt th{color:white}
+table.mt tr:last-child td{border-bottom:none}
+.market-note{margin-top:20px;font-size:.88rem;color:#666;background:white;border-radius:10px;padding:16px;border-left:3px solid var(--gold)}
+
+/* HEATMAP */
+.heatmap-desc{font-size:.9rem;color:#666;margin-bottom:20px}
+.heatmap-wrapper{overflow-x:auto}
+table.hm{border-collapse:collapse;font-size:.82rem;min-width:600px}
+table.hm th{background:var(--green);color:white;padding:10px 14px;text-align:center;font-weight:500}
+table.hm th.row-header{background:var(--green-dark);text-align:center;min-width:72px}
+table.hm td{padding:10px 14px;text-align:center;font-weight:500;min-width:80px;color:#222}
+
+/* PROYECCIÓN 12M */
+table.mly{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;font-size:.88rem;margin-bottom:32px}
+table.mly th{background:var(--green);color:white;padding:12px 14px;text-align:right;font-weight:500}
+table.mly th:first-child{text-align:left}
+table.mly td{padding:11px 14px;border-bottom:1px solid #f0f0f0;text-align:right;color:#222}
+table.mly td:first-child{text-align:left;font-weight:500}
+table.mly tr.tr{background:var(--green-dark);}
+table.mly tr.tr td{color:white!important;font-weight:600;border-bottom:none}
+.chart-wrap{background:white;border-radius:12px;padding:24px}
+svg.bar-chart text{font-family:'Inter',sans-serif}
+
+/* ESTRATEGIA */
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:24px}
+.strategy-item{background:white;border-radius:12px;padding:24px}
+.strategy-item h4{font-size:1rem;color:var(--green-dark);margin-bottom:10px}
+.strategy-item p{font-size:.88rem;color:#555;line-height:1.6}
+
+/* DESGLOSE TABLE */
+table.bt{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;font-size:.88rem;margin-bottom:28px}
+table.bt th{background:var(--green);color:white;padding:12px 14px;text-align:right;font-weight:500}
+table.bt th:first-child{text-align:left}
+table.bt td{padding:11px 14px;border-bottom:1px solid #f0f0f0;text-align:right;color:#222}
+table.bt td:first-child{text-align:left}
+table.bt tr.highlight td{font-weight:700;color:var(--green)!important;background:#f7fff8}
+table.bt tr:last-child td{border-bottom:none}
+
+/* FOOTER */
+footer{background:var(--green-dark);color:rgba(255,255,255,.7);text-align:center;padding:40px 32px;font-size:.85rem}
+footer strong{color:white;font-family:'Bakbak One',sans-serif;font-size:1.1rem;display:block;margin-bottom:8px}
+footer .disclaimer{font-size:.78rem;margin-top:12px;color:rgba(255,255,255,.45)}
+
+@media(max-width:600px){
+  nav{padding:12px 16px}
+  section{padding:48px 16px}
+  .hero{padding:60px 16px 48px}
+  .hero-stats{gap:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo">Distrito BA</span>
+  <span class="nav-client">Fede Gorelik · Scalabrini Ortiz 100</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Proyección de ingresos Airbnb</p>
+  <h1 class="hero-title">Av. Scalabrini Ortiz 100</h1>
+  <p class="hero-subtitle">Villa Crespo · 3 Ambientes · 4 huéspedes</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-value" id="heroPrice">$0</span>
+      <span class="stat-label">Precio base / noche</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="heroOcc">0%</span>
+      <span class="stat-label">Ocupación estimada</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="heroNeto">$0</span>
+      <span class="stat-label">Neto mensual</span>
+    </div>
+  </div>
+  <div class="no-pm-badge">Sin deducción de PM · Ingresos directos al propietario</div>
+</div>
+
+<hr class="divider">
+
+<!-- 01 EL DEPTO -->
+<section id="depto">
+  <p class="section-tag">01 · El Depto</p>
+  <h2>Scalabrini Ortiz 100, Villa Crespo</h2>
+  <p class="section-desc">Departamento de 3 ambientes en una de las avenidas más vibrantes de Villa Crespo, a pasos de Palermo. Piso alto, muy luminoso, con balcón terraza y pisos de parquet en espiga.</p>
+  <div class="depto-desc">
+    <p>Departamento de época en piso alto sobre Av. Scalabrini Ortiz, a pocos metros del límite con Palermo. La unidad destaca por su luminosidad excepcional, techos altos, pisos de parquet en espiga y un balcón terraza con vistas a la ciudad. La cocina vintage con azulejos oscuros y revestimiento de madera, el living comedor con detalles de época y el dormitorio principal con A/C, Smart TV y acceso al balcón completan un perfil de alojamiento auténtico y sofisticado que se diferencia del estándar del mercado. La zona ofrece conectividad directa al subte (Línea B), gastronomía, diseño y cultura a metros de la puerta.</p>
+  </div>
+  <div class="amenities-grid">
+    <div class="amenity">🏢 Piso alto</div>
+    <div class="amenity">🌿 Balcón terraza</div>
+    <div class="amenity">☀️ Muy luminoso</div>
+    <div class="amenity">🪵 Parquet herringbone</div>
+    <div class="amenity">🏛️ Depto de época</div>
+    <div class="amenity">👕 Lavarropas</div>
+    <div class="amenity">❄️ A/C dormitorio</div>
+    <div class="amenity">📺 Smart TV</div>
+    <div class="amenity">🏙️ Vistas a la ciudad</div>
+    <div class="amenity">📍 Próximo a Palermo</div>
+    <div class="amenity">🚇 Subte Línea B</div>
+    <div class="amenity">🍴 Gastronomía</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 02 MERCADO -->
+<section id="mercado">
+  <p class="section-tag">02 · Mercado</p>
+  <h2>Referencia de mercado</h2>
+  <p class="section-desc">Análisis de precios en Villa Crespo y zona Palermo adyacente para unidades de 3 ambientes y capacidad similar.</p>
+
+  <div class="market-stats">
+    <div class="mstat">
+      <span class="mstat-val">$39–$47</span>
+      <span class="mstat-lbl">Promedio mercado / noche (USD)</span>
+    </div>
+    <div class="mstat">
+      <span class="mstat-val">2.260</span>
+      <span class="mstat-lbl">Anuncios activos en Villa Crespo</span>
+    </div>
+    <div class="mstat">
+      <span class="mstat-val">4,8 ★</span>
+      <span class="mstat-lbl">Rating promedio del barrio</span>
+    </div>
+  </div>
+
+  <table class="mt">
+    <thead>
+      <tr>
+        <th>Alojamiento</th>
+        <th>Tipo</th>
+        <th>Precio/n</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Casa Malabia · Loft con terraza privada</td>
+        <td>Loft · 2/3 pax</td>
+        <td>~$90</td>
+        <td>4.90 ★</td>
+      </tr>
+      <tr>
+        <td>Single Family Private Patio · Palermo Queens</td>
+        <td>Depto · 4 pax</td>
+        <td>~$85</td>
+        <td>4.96 ★</td>
+      </tr>
+      <tr>
+        <td>Family apartment · V. Crespo (ultra high speed)</td>
+        <td>3 amb · 4 pax</td>
+        <td>~$89</td>
+        <td>4.90 ★</td>
+      </tr>
+      <tr>
+        <td>Spacious &amp; Bright Apt Buenos Aires · V. Crespo</td>
+        <td>2 amb + balcón</td>
+        <td>~$70</td>
+        <td>4.93 ★</td>
+      </tr>
+      <tr>
+        <td>Modern 3-Story House · V.Crespo / Palermo</td>
+        <td>Casa · 4 pax</td>
+        <td>~$95</td>
+        <td>4.80 ★</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="market-note">
+    <strong>Posicionamiento del inmueble:</strong> Con equipamiento y estado regulares, la unidad apunta al <strong>segmento medio de Villa Crespo</strong>. El rango objetivo de $60–$90/noche es coherente con comparables similares y deja margen para mejoras que permitan escalar el precio con el tiempo.
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 03 HEATMAP -->
+<section id="heatmap">
+  <p class="section-tag">03 · Mapa de calor</p>
+  <h2>¿Cuánto podés ganar?</h2>
+  <p class="heatmap-desc">Neto mensual sin PM · Precio/noche × Ocupación. La celda <strong style="color:var(--gold)">★</strong> es el escenario base ($75/n · 80%).</p>
+  <div class="heatmap-wrapper">
+    <table class="hm" id="hmTable"></table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 04 PROYECCIÓN 12M -->
+<section id="proyeccion">
+  <p class="section-tag">04 · Proyección 12 meses</p>
+  <h2>Ingresos mensuales</h2>
+  <p class="section-desc">Basado en el escenario base ($75/noche · 80% ocupación) con estacionalidad. Sin deducción de PM.</p>
+
+  <table class="mly" id="mlyTable">
+    <thead>
+      <tr>
+        <th style="text-align:left">Mes</th>
+        <th>Factor</th>
+        <th>Bruto</th>
+        <th>Neto (sin PM)</th>
+      </tr>
+    </thead>
+  </table>
+
+  <div class="chart-wrap">
+    <h3 style="font-size:1rem;color:var(--green-dark);margin-bottom:20px">Proyección anual por escenario</h3>
+    <svg id="barChart" class="bar-chart" width="100%" viewBox="0 0 820 320" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 05 ESTRATEGIA -->
+<section id="estrategia">
+  <p class="section-tag">05 · Estrategia</p>
+  <h2>Cómo maximizar los ingresos</h2>
+  <p class="section-desc">Recomendaciones específicas para este inmueble basadas en sus diferenciadores y la dinámica del mercado.</p>
+
+  <div class="strategy-grid">
+    <div class="strategy-item">
+      <h4>📅 Temporada Alta</h4>
+      <p>Enero, febrero, julio, noviembre y diciembre presentan factores 10–15% superiores al promedio. Subir precio en esos meses a $80–$90/noche captura el pico sin perder ocupación.</p>
+    </div>
+    <div class="strategy-item">
+      <h4>🏛️ El depto de época como diferenciador</h4>
+      <p>Las fotos deben capturar el parquet herringbone, los techos, la cocina vintage y el balcón con vistas. Estos detalles generan bookings de mayor valor y huéspedes más cuidadosos del espacio.</p>
+    </div>
+    <div class="strategy-item">
+      <h4>🌿 Balcón terraza como ancla</h4>
+      <p>Destacar el balcón terraza con vistas a la ciudad en el título del anuncio. Es un diferenciador clave vs la mayoría de unidades comparables de la zona que carecen de este espacio exterior.</p>
+    </div>
+    <div class="strategy-item">
+      <h4>📍 Estrategia de posicionamiento</h4>
+      <p>Título sugerido: "Elegante depto de época · Balcón terraza · Villa Crespo / Palermo". Mencionar la conectividad al subte Línea B y la proximidad a Palermo amplía el alcance de búsqueda.</p>
+    </div>
+    <div class="strategy-item">
+      <h4>💰 Pricing dinámico</h4>
+      <p>Usar Pricelabs o Smart Pricing de Airbnb. Ajustar mínimo a $55 en temporada baja (mayo–septiembre) y máximo a $90–$100 para fines de semana largos y eventos en Movistar Arena.</p>
+    </div>
+    <div class="strategy-item">
+      <h4>👤 Host principal</h4>
+      <p>El propietario es el host principal en Airbnb; Distrito BA opera como co-host. Esta estructura preserva el perfil del propietario y los reviews acumulados en el anuncio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Distrito BA</strong>
+  <p>Proyección preparada para Fede Gorelik · Av. Scalabrini Ortiz 100, Villa Crespo</p>
+  <p class="disclaimer">Proyección estimada con base en datos de mercado de octubre 2026. Los resultados reales pueden variar según temporada, gestión y características del anuncio. Sin deducción de PM (gestión a cargo del propietario).</p>
+</footer>
+
+<script>
+// ── CONSTANTES ──────────────────────────────────────────────────────────────
+const COM = 0.155;
+const PM  = 0.00;   // sin deducción de PM
+const EXP = 200;
+const BP  = 100;    // precio base
+const BO  = 0.80;   // ocupación base
+
+const PRICES = [50, 55, 60, 65, 70, 75, 80, 85, 90, 95];
+const OCCS   = [0.70, 0.75, 0.78, 0.80, 0.82, 0.85];
+
+const P_CONS = 60;  const OCC_CONS = 0.75;
+const P_BASE = 75;  const OCC_BASE = 0.80;
+const P_OPT  = 90;  const OCC_OPT  = 0.85;
+
+const MESES  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const FACTOR = [1.10,1.15,1.05,0.95,0.85,0.85,1.10,0.90,0.90,0.90,1.10,1.15];
+
+function netSinPM(price, occ) {
+  return Math.round(30 * occ * price * (1 - COM) - EXP);
+}
+
+// ── HERO COUNTER ────────────────────────────────────────────────────────────
+function animateCounter(el, target, prefix, suffix, duration) {
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const val = Math.round(progress * target);
+    el.textContent = prefix + val.toLocaleString('es-AR') + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const baseNet = netSinPM(P_BASE, OCC_BASE);
+
+const obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      animateCounter(document.getElementById('heroPrice'), P_BASE, '$', '/n', 1200);
+      animateCounter(document.getElementById('heroOcc'),   Math.round(OCC_BASE*100), '', '%', 1200);
+      animateCounter(document.getElementById('heroNeto'),  baseNet, '$', '/mes', 1400);
+      obs.disconnect();
+    }
+  });
+});
+obs.observe(document.querySelector('.hero'));
+
+// ── HEATMAP ─────────────────────────────────────────────────────────────────
+function heatColor(val, min, max) {
+  const ratio = Math.max(0, Math.min(1, (val - min) / (max - min)));
+  const r = Math.round(255 - ratio * (255 - 46));
+  const g = Math.round(255 - ratio * (255 - 86));
+  const b = Math.round(255 - ratio * (255 - 52));
+  return 'rgb('+r+','+g+','+b+')';
+}
+
+(function buildHeatmap() {
+  const tbl = document.getElementById('hmTable');
+  if (!tbl) return;
+
+  // header row
+  const thead = tbl.createTHead();
+  const hdr = thead.insertRow();
+  const th0 = document.createElement('th');
+  th0.className = 'row-header';
+  th0.textContent = 'Ocup. \\ $/n';
+  hdr.appendChild(th0);
+  PRICES.forEach(function(p) {
+    const th = document.createElement('th');
+    th.textContent = '$' + p;
+    hdr.appendChild(th);
+  });
+
+  // compute min/max
+  let minVal = Infinity, maxVal = -Infinity;
+  OCCS.forEach(function(o) {
+    PRICES.forEach(function(p) {
+      const v = netSinPM(p, o);
+      if (v < minVal) minVal = v;
+      if (v > maxVal) maxVal = v;
+    });
+  });
+
+  // body
+  const tbody = tbl.createTBody();
+  OCCS.slice().reverse().forEach(function(occ) {
+    const row = tbody.insertRow();
+    const lbl = row.insertCell();
+    lbl.style.background = 'var(--green)';
+    lbl.style.color = 'white';
+    lbl.style.fontWeight = '600';
+    lbl.style.textAlign = 'center';
+    lbl.textContent = Math.round(occ * 100) + '%';
+
+    PRICES.forEach(function(price) {
+      const val = netSinPM(price, occ);
+      const cell = row.insertCell();
+      const isStar = (price === BP && occ === BO);
+      if (isStar) {
+        cell.style.background = 'var(--gold)';
+        cell.style.color = 'white';
+        cell.textContent = '★ $' + val.toLocaleString('es-AR');
+      } else {
+        const bg = heatColor(val, minVal, maxVal);
+        cell.style.background = bg;
+        const ratio = (val - minVal) / (maxVal - minVal);
+        cell.style.color = ratio > 0.5 ? 'white' : '#222';
+        cell.textContent = '$' + val.toLocaleString('es-AR');
+      }
+    });
+  });
+})();
+
+// ── TABLA 12M ────────────────────────────────────────────────────────────────
+(function buildMonthly() {
+  const tbl = document.getElementById('mlyTable');
+  if (!tbl) return;
+
+  const baseBruto  = 30 * OCC_BASE * BP;
+  const basePostCom = baseBruto * (1 - COM);
+
+  let tBr = 0, tNs = 0;
+
+  MESES.forEach(function(m, i) {
+    const f  = FACTOR[i];
+    const br = Math.round(baseBruto * f);
+    const ns = Math.round(basePostCom * f - EXP);
+    tBr += br; tNs += ns;
+
+    const row = tbl.insertRow(-1);
+    row.insertCell(0).textContent = m;
+    const c1 = row.insertCell(1); c1.style.textAlign = 'right'; c1.textContent = f.toFixed(2);
+    const c2 = row.insertCell(2); c2.style.textAlign = 'right'; c2.textContent = '$' + br.toLocaleString('es-AR');
+    const c3 = row.insertCell(3); c3.style.textAlign = 'right'; c3.textContent = '$' + ns.toLocaleString('es-AR');
+  });
+
+  // total
+  const tot = tbl.insertRow(-1);
+  tot.className = 'tr';
+  tot.insertCell(0).textContent = 'TOTAL ANUAL';
+  const t1 = tot.insertCell(1); t1.style.textAlign = 'right'; t1.textContent = '12,00';
+  const t2 = tot.insertCell(2); t2.style.textAlign = 'right'; t2.textContent = '$' + tBr.toLocaleString('es-AR');
+  const t3 = tot.insertCell(3); t3.style.textAlign = 'right'; t3.textContent = '$' + tNs.toLocaleString('es-AR');
+})();
+
+// ── BAR CHART SVG ────────────────────────────────────────────────────────────
+(function buildChart() {
+  const svg = document.getElementById('barChart');
+  if (!svg) return;
+
+  function annualNet(price, occ) {
+    const monthly = 30 * occ * price * (1 - COM) - EXP;
+    return Math.round(monthly * 12);
+  }
+  function annualBruto(price, occ) {
+    return Math.round(30 * occ * price * 12);
+  }
+
+  const scenarios = [
+    { label: 'Conservador', price: P_CONS, occ: OCC_CONS },
+    { label: 'Base',        price: P_BASE, occ: OCC_BASE },
+    { label: 'Optimista',   price: P_OPT,  occ: OCC_OPT  },
+  ];
+
+  const datasets = [
+    { label: 'Bruto anual',   color: '#7ABFCC', key: 'bruto' },
+    { label: 'Neto sin PM',   color: '#2E5634', key: 'neto'  },
+  ];
+
+  const data = scenarios.map(function(s) {
+    return {
+      label: s.label,
+      bruto: annualBruto(s.price, s.occ),
+      neto:  annualNet(s.price, s.occ),
+    };
+  });
+
+  const W = 820, H = 320;
+  const padL = 80, padR = 20, padT = 20, padB = 60;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  const maxVal = Math.max(...data.map(function(d) { return d.bruto; }));
+  const yMax = Math.ceil(maxVal / 5000) * 5000;
+
+  const nScenarios = scenarios.length;
+  const nBars = datasets.length;
+  const groupW = chartW / nScenarios;
+  const barW = groupW * 0.28;
+  const gap  = groupW * 0.06;
+
+  let html = '';
+
+  // Y grid
+  for (let i = 0; i <= 4; i++) {
+    const val = yMax * i / 4;
+    const y = padT + chartH - (val / yMax) * chartH;
+    html += '<line x1="' + padL + '" y1="' + y + '" x2="' + (W - padR) + '" y2="' + y + '" stroke="#eee" stroke-width="1"/>';
+    html += '<text x="' + (padL - 6) + '" y="' + (y + 4) + '" text-anchor="end" font-size="11" fill="#888">$' + (val/1000).toFixed(0) + 'k</text>';
+  }
+
+  // bars
+  data.forEach(function(d, si) {
+    const groupX = padL + si * groupW + groupW * 0.12;
+    datasets.forEach(function(ds, di) {
+      const val = d[ds.key];
+      const barH = (val / yMax) * chartH;
+      const x = groupX + di * (barW + gap);
+      const y = padT + chartH - barH;
+      html += '<rect x="' + x + '" y="' + y + '" width="' + barW + '" height="' + barH + '" fill="' + ds.color + '" rx="3"/>';
+      html += '<text x="' + (x + barW/2) + '" y="' + (y - 4) + '" text-anchor="middle" font-size="10" fill="#555">$' + Math.round(val/1000) + 'k</text>';
+    });
+
+    // scenario label
+    const lx = groupX + (nBars * barW + (nBars-1) * gap) / 2;
+    html += '<text x="' + lx + '" y="' + (padT + chartH + 20) + '" text-anchor="middle" font-size="12" fill="#333" font-weight="600">' + d.label + '</text>';
+    html += '<text x="' + lx + '" y="' + (padT + chartH + 36) + '" text-anchor="middle" font-size="10" fill="#888">$' + scenarios[si].price + '/n · ' + Math.round(scenarios[si].occ*100) + '%</text>';
+  });
+
+  // legend
+  datasets.forEach(function(ds, i) {
+    const lx = padL + i * 120;
+    const ly = H - 8;
+    html += '<rect x="' + lx + '" y="' + (ly - 10) + '" width="12" height="12" fill="' + ds.color + '" rx="2"/>';
+    html += '<text x="' + (lx + 16) + '" y="' + ly + '" font-size="11" fill="#555">' + ds.label + '</text>';
+  });
+
+  svg.innerHTML = html;
+})();
+</script>
+</body>
+</html>
